@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 
 class Database:
-    def __init__(self, db_name="shop_bot_regos.db"):
+    def __init__(self, db_name="shop_bot_regos2.db"):
         self.db_name = db_name
         self.init_db()
 

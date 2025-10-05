@@ -16,7 +16,11 @@ from admins import AdminHandlers
 # Настройка логирования
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+import sys
+import os
 
+# Добавляем путь к docr в sys.path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'docr'))
 # Токены и настройки
 # Add at the top of main.py
 from dotenv import load_dotenv
@@ -26,7 +30,7 @@ import os
 load_dotenv()
 
 # Then use them like this:
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+BOT_TOKEN = os.getenv("API_TOKEN")
 ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
 
 
@@ -114,10 +118,9 @@ async def main():
                         F.text == "пропустить")
     dp.message.register(admin_handlers.process_edit_product_photo, AdminStates.editing_product_photo, F.photo)
 
-    # REGOS orders management handlers
     @dp.message(lambda message: message.text == "📦 Управление заказами REGOS")
     async def regos_orders_menu(message: types.Message, state: FSMContext):
-        await admin_handlers.show_regos_orders_menu(message)
+        await admin_handlers.show_regos_orders_menu(message, state)  # Added state parameter
 
     @dp.message(lambda message: message.text == "🔄 Синхронизировать заказы")
     async def sync_regos_orders(message: types.Message):

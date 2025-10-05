@@ -143,18 +143,18 @@ def get_confirm_order_keyboard():
 
 def get_regos_orders_keyboard():
     """Get keyboard for REGOS orders management"""
-    keyboard = [
-        [
-            KeyboardButton(text="🔄 Синхронизировать заказы"),
-            KeyboardButton(text="📋 Проверить статус заказа")
-        ],
-        [
-            KeyboardButton(text="✏️ Обновить статус заказа"),
-            KeyboardButton(text="🔙 Назад в админ-панель")
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(text="🔄 Синхронизировать заказы", callback_data="sync_regos_orders"),
+                InlineKeyboardButton(text="ℹ️ Проверить статус", callback_data="check_regos_status")
+            ],
+            [
+                InlineKeyboardButton(text="✏️ Обновить статус", callback_data="update_regos_status"),
+                InlineKeyboardButton(text="🔙 Назад", callback_data="back_to_admin")
+            ]
         ]
-    ]
-    return ReplyKeyboardMarkup(keyboard=keyboard, resize_keyboard=True)
-
+    )
 
 def get_regos_status_keyboard():
     """Get keyboard with common REGOS status options"""
